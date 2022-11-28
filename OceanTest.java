@@ -104,45 +104,53 @@ class OceanTest {
 
 	@Test
 	void testIsOccupied() {
-
+		//Place the destroyer at the given position
 		Destroyer destroyer = new Destroyer();
 		int row = 1;
 		int column = 5;
 		boolean horizontal = false;
 		destroyer.placeShipAt(row, column, horizontal, ocean);
-		
+
+		//Place the submarine at the given position
 		Ship submarine = new Submarine();
 		row = 0;
 		column = 0;
 		horizontal = false;
 		submarine.placeShipAt(row, column, horizontal, ocean);
-		
+
+		//Test whether the given place is occupied
 		assertTrue(ocean.isOccupied(1, 5));
 
+		//Place the battleship at the given position
 		Ship battleship = new Battleship();
 		row = 2;
 		column = 6;
 		horizontal = true;
 		battleship.placeShipAt(row, column, horizontal, ocean);
 
+		//Test whether the given place is occupied
 		assertTrue(ocean.isOccupied(2, 4));
 
+		//Place the cruiser at the given position
 		Ship cruiser = new Cruiser();
 		row = 6;
 		column = 8;
 		horizontal = true;
 		cruiser.placeShipAt(row, column, horizontal, ocean);
 
+		//Test whether the given place is occupied
 		assertTrue(ocean.isOccupied(6, 7));
 
+		//Test whether the given place is occupied
 		assertFalse(ocean.isOccupied(9, 7));
 	}
 
 	@Test
 	void testShootAt() {
-	
+		//Test shooting at the empty ocean
 		assertFalse(ocean.shootAt(0, 1));
-		
+
+		//Place the destroyer at the given position
 		Destroyer destroyer = new Destroyer();
 		int row = 1;
 		int column = 5;
@@ -153,6 +161,7 @@ class OceanTest {
 		assertFalse(destroyer.isSunk());
 		assertTrue(ocean.shootAt(0, 5));
 
+		//Place the submarine at the given position
 		Submarine submarine = new Submarine();
 		row = 2;
 		column = 6;
@@ -162,6 +171,7 @@ class OceanTest {
 		assertTrue(ocean.shootAt(2, 6));
 		assertTrue(submarine.isSunk());
 
+		//Place the cruiser at the given position
 		Cruiser cruiser = new Cruiser();
 		row = 7;
 		column = 2;
@@ -173,6 +183,7 @@ class OceanTest {
 		assertTrue(ocean.shootAt(6, 2));
 		assertFalse(cruiser.isSunk());
 
+		//Place the battleship at the given position
 		Battleship battleship = new Battleship();
 		row = 8;
 		column = 9;
@@ -193,13 +204,15 @@ class OceanTest {
 		assertFalse(ocean.shootAt(3, 3));
 		assertFalse(ocean.shootAt(9, 9));
 		assertEquals(4, ocean.getShotsFired());
-		
+
+		//Place the destroyer at the given position
 		Destroyer destroyer = new Destroyer();
 		int row = 1;
 		int column = 5;
 		boolean horizontal = false;
 		destroyer.placeShipAt(row, column, horizontal, ocean);
-		
+
+		//Place the submarine at the given position
 		Ship submarine = new Submarine();
 		row = 0;
 		column = 0;
@@ -212,6 +225,7 @@ class OceanTest {
 		assertTrue(destroyer.isSunk());
 		assertEquals(6, ocean.getShotsFired());
 
+		//Place the battleship at the given position
 		Ship battleship = new Battleship();
 		row = 6;
 		column = 8;
@@ -224,6 +238,7 @@ class OceanTest {
 		assertFalse(battleship.isSunk());
 		assertEquals(8, ocean.getShotsFired());
 
+		//Place the cruiser at the given position
 		Ship cruiser = new Cruiser();
 		row = 9;
 		column = 7;
@@ -239,7 +254,7 @@ class OceanTest {
 
 	@Test
 	void testGetHitCount() {
-		
+		//Place the destroyer at the given position
 		Destroyer destroyer = new Destroyer();
 		int row = 1;
 		int column = 5;
@@ -250,6 +265,7 @@ class OceanTest {
 		assertFalse(destroyer.isSunk());
 		assertEquals(1, ocean.getHitCount());
 
+		//Place the submarine at the given position
 		Submarine submarine = new Submarine();
 		row = 2;
 		column = 6;
@@ -260,6 +276,7 @@ class OceanTest {
 		assertTrue(submarine.isSunk());
 		assertEquals(2, ocean.getHitCount());
 
+		//Place the battleship at the given position
 		Battleship battleship = new Battleship();
 		row = 6;
 		column = 6;
@@ -270,6 +287,7 @@ class OceanTest {
 		assertFalse(battleship.isSunk());
 		assertEquals(2, ocean.getHitCount());
 
+		//Place the cruiser at the given position
 		Cruiser cruiser = new Cruiser();
 		row = 9;
 		column = 8;
@@ -284,7 +302,7 @@ class OceanTest {
 	
 	@Test
 	void testGetShipsSunk() {
-		
+		//Place the destroyer at the given position
 		Destroyer destroyer = new Destroyer();
 		int row = 1;
 		int column = 5;
@@ -296,6 +314,7 @@ class OceanTest {
 		assertEquals(1, ocean.getHitCount());
 		assertEquals(0, ocean.getShipsSunk());
 
+		//Place the cruiser at the given position
 		Cruiser cruiser = new Cruiser();
 		row = 6;
 		column = 7;
@@ -307,6 +326,7 @@ class OceanTest {
 		assertEquals(2, ocean.getHitCount());
 		assertEquals(0, ocean.getShipsSunk());
 
+		//Place the submarine at the given position
 		Submarine submarine = new Submarine();
 		row = 9;
 		column = 8;
@@ -328,6 +348,7 @@ class OceanTest {
 		
 		assertEquals("empty", shipArray[0][0].getShipType());
 
+		//Place the submarine at the given position
 		Submarine submarine = new Submarine();
 		int row = 9;
 		int column = 8;
@@ -336,6 +357,7 @@ class OceanTest {
 
 		assertEquals("submarine", shipArray[9][8].getShipType());
 
+		//Place the destroyer at the given position
 		Destroyer destroyer = new Destroyer();
 		row = 6;
 		column = 6;
@@ -344,6 +366,7 @@ class OceanTest {
 
 		assertEquals("empty", shipArray[6][0].getShipType());
 
+		//Place the cruiser at the given position
 		Cruiser cruiser = new Cruiser();
 		row = 7;
 		column = 9;

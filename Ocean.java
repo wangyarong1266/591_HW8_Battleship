@@ -3,6 +3,9 @@ package battleship;
 import java.util.Random;
 
 public class Ocean {
+    /**
+     * Used to quickly determine which ship is in any given location
+     */
     private Ship[][] ships = new Ship[10][10];
 
     /**
@@ -16,8 +19,15 @@ public class Ocean {
      */
     private int hitCount;
 
+    /**
+     * The number of ships sunk (10 ships in all)
+     */
     private int shipsSunk;
 
+    /**
+     * Creates an ”empty” ocean (and fills the ships array with EmptySea objects).
+     * Also initializes any game variables, such as how many shots have been fired.
+     */
     public Ocean() {
         //Creates an empty ocean and fills the ships array with EmptySea objects.
         this.fillEmptyOceanShips();
@@ -29,7 +39,11 @@ public class Ocean {
     private void fillEmptyOceanShips() {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                this.ships[i][j] = new EmptySea();
+                Ship newShip = new EmptySea();
+                newShip.setBowRow(i);
+                newShip.setBowColumn(j);
+                newShip.setHorizontal(true);
+                this.ships[i][j] = newShip;
             }
         }
     }
@@ -54,6 +68,9 @@ public class Ocean {
         this.shipsSunk = this.getShipsSunk() + 1;
     }
 
+    /**
+     * Place all ten ships randomly on the (initially empty) ocean.
+     */
     public void placeAllShipsRandomly() {
         Random random = new Random();
         int row;
@@ -65,6 +82,7 @@ public class Ocean {
         column = random.nextInt(10);
         trueOrFalse = random.nextInt(2);
         boolean battleShipOkToPlace = battleshipToPlace.okToPlaceShipAt(row, column, trueOrFalse == 1, this);
+        //Util the battleship is OK to place here.
         while (!battleShipOkToPlace) {
             row = random.nextInt(10);
             column = random.nextInt(10);
@@ -79,6 +97,7 @@ public class Ocean {
             column = random.nextInt(10);
             trueOrFalse = random.nextInt(2);
             boolean cruiserOkToPlace = cruiserToPlace.okToPlaceShipAt(row, column, trueOrFalse == 1, this);
+            //Util the cruiser is OK to place here.
             while (!cruiserOkToPlace) {
                 row = random.nextInt(10);
                 column = random.nextInt(10);
@@ -94,6 +113,7 @@ public class Ocean {
             column = random.nextInt(10);
             trueOrFalse = random.nextInt(2);
             boolean destroyerOkToPlace = destroyerToPlace.okToPlaceShipAt(row, column, trueOrFalse == 1, this);
+            //Util the destroyer is OK to place here.
             while (!destroyerOkToPlace) {
                 row = random.nextInt(10);
                 column = random.nextInt(10);
@@ -109,6 +129,7 @@ public class Ocean {
             column = random.nextInt(10);
             trueOrFalse = random.nextInt(2);
             boolean submarineOkToPlace = submarineToPlace.okToPlaceShipAt(row, column, trueOrFalse == 1, this);
+            //Util the submarine is OK to place here.
             while (!submarineOkToPlace) {
                 row = random.nextInt(10);
                 column = random.nextInt(10);
@@ -119,6 +140,12 @@ public class Ocean {
         }
     }
 
+    /**
+     *  Returns true if the given location contains a ship, false if it does not.
+     * @param row
+     * @param column
+     * @return
+     */
     public boolean isOccupied(int row, int column) {
         if (!this.getShipArray()[row][column].getShipType().equals("empty")) {
             return true;
@@ -126,6 +153,13 @@ public class Ocean {
         return false;
     }
 
+    /**
+     * Returns true if the given location contains a ”real” ship, still afloat, (not an EmptySea), false if it does not.
+     * In addition, this method updates the number of shots that have been fired, and the number of hits.
+     * @param row
+     * @param column
+     * @return
+     */
     public boolean shootAt(int row, int column) {
         //Update the number of shots that have been fired.
         this.shotsFired = this.getShotsFired() + 1;
@@ -146,8 +180,16 @@ public class Ocean {
         return false;
     }
 
+    /**
+     * Prints the Ocean. To aid the user, row numbers should be displayed along the left edge of the array, and column numbers should be displayed along the top.
+     * Numbers should be 0 to 9, not 1 to 10.
+     * The top left corner square should be 0, 0.
+     * ‘x’: Use ‘x’ to indicate a location that you have fired upon and hit a (real) ship.
+     * ‘-’: Use ‘-’ to indicate a location that you have fired upon and found nothing there.
+     * ‘s’: Use ‘s’ to indicate a location containing a sunken ship.
+     *  ‘.’: and use ‘.’ (a period) to indicate a location that you have never fired upon.
+     */
     public void print() {
-        //Print column numbers.
         System.out.print(" ");
         for (int i = 0; i < 10; i++) {
             System.out.print(" " + i);
@@ -190,7 +232,6 @@ public class Ocean {
     }
 
     public void printWithShips() {
-        //Print column numbers.
         System.out.print(" ");
         for (int i = 0; i < 10; i++) {
             System.out.print(" " + i);

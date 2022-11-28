@@ -3,6 +3,12 @@ package battleship;
 import java.util.Scanner;
 
 public class BattleshipGame {
+    /**
+     * Get the row number and the column number of the shoot from the user
+     * Check whether the row number and the column number of the shoot are valid
+     * @param getShotFromUser
+     * @return
+     */
     public int[] getQualifiedShotFromUser(Scanner getShotFromUser) {
         int[] qualifiedTargetRowAndColumn = new int[2];
         int targetRowNumber = 0;
@@ -52,7 +58,7 @@ public class BattleshipGame {
         BattleshipGame newBattleshipGame = new BattleshipGame();
         Ocean newOcean = new Ocean();
         newOcean.placeAllShipsRandomly();
-        newOcean.printWithShips();
+//        newOcean.printWithShips();
         newOcean.print();
         //Int array to hold target row and target column.
         int[] targetRowAndColumn;
@@ -60,6 +66,7 @@ public class BattleshipGame {
         int targetColumn;
         Ship targetShip;
         Scanner getShotFromUser = new Scanner(System.in);
+        //Util all of 10 ships are sunk.
         while (newOcean.getShipsSunk() < 10) {
             targetRowAndColumn = newBattleshipGame.getQualifiedShotFromUser(getShotFromUser);
             targetRow = targetRowAndColumn[0];
